@@ -26,7 +26,6 @@ setup(
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     python_requires=">=3.5, <4",
-    install_requires=requireds,
     entry_points={
         "console_scripts": [
             "rembg=rembg.cmd.cli:main",

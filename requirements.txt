@@ -1,9 +1,10 @@
+-f https://download.pytorch.org/whl/torch_stable.html
 flask==1.1.2
 numpy==1.19.1
 pillow==7.2.0
 scikit-image==0.17.2
-torch==1.6.0
-torchvision==0.7.0
+torch==1.5.0+cpu 
+torchvision==0.6.0+cpu
 waitress==1.4.4
 tqdm==4.48.2
 requests==2.24.0
