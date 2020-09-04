@@ -4,7 +4,7 @@ WORKDIR /src/rembg
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install git+git://github.com/yongfook/rembg#egg=rembg
+RUN python setup.py install
 
 COPY . .
 
