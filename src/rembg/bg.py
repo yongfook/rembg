@@ -1,7 +1,7 @@
 import io
-
+import cv2
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 from .u2net import detect
 
@@ -15,12 +15,14 @@ def remove(data, model_name="u2net"):
     if model == "u2netp":
         model = model_u2netp
 
-    img = Image.open(io.BytesIO(data))
+    img = Image.open(io.BytesIO(data)).convert('RGB')
     roi = detect.predict(model, np.array(img))
-    roi = roi.resize((img.size), resample=Image.LANCZOS)
-
+    mask = roi.resize(img.size, resample=Image.LANCZOS).convert("L").filter(ImageFilter.MinFilter)
     empty = Image.new("RGBA", (img.size), 0)
-    out = Image.composite(img, empty, roi.convert("L"))
+
+
+    #old way    
+    out = Image.composite(img, empty, mask)
 
     bio = io.BytesIO()
     out.save(bio, "PNG")
