@@ -1,4 +1,6 @@
 import argparse
+import os 
+
 from io import BytesIO
 from urllib.parse import unquote_plus
 from urllib.request import urlopen
@@ -17,14 +19,13 @@ def index():
     if model not in ("u2net", "u2netp"):
         return {"error": "invalid query param 'model'"}, 400
 
-    file_content = ''
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            return {"error": "missing post form param 'file'"}, 400
-
-        file_content = request.files['file'].read();
-
     if request.method == 'GET':
+        auth_key = request.args.get("auth_key", type=str)
+        if auth_key is None:
+            return {"error": "missing query param 'auth_key'"}, 400
+        if auth_key != os.getenv('ML_AUTH_KEY'):
+            return {"error": "'auth_key' is invalid"}, 400
+             
         url = request.args.get("url", type=str)
         if url is None:
             return {"error": "missing query param 'url'"}, 400
