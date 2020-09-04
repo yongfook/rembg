@@ -1,12 +1,11 @@
 FROM python:3
 
-WORKDIR /src/rembg
+ADD /src /src
+ADD requirements.txt /
+ADD setup.py /
+WORKDIR /
 
-COPY requirements.txt ./
-COPY setup.py ./
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python3 setup.py install
-
-COPY . .
+RUN pip install -e .
 
 CMD rembg-server -p 8000

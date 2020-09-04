@@ -12,3 +12,4 @@ __pycache__/
 .tox
 .cache
 test_urls.txt
+pip-wheel-metadata
